@@ -5,12 +5,13 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from 'cors';
 import bodyParser from "body-parser";
-
+import postRoutes from './routes/posts.js'
 
 // app config
 const app = express();
 
 // middleware
+app.use('/posts', postRoutes);
 app.use(bodyParser.json({ limit: "30mb", extended: true}));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true}));
 app.use(cors());
@@ -20,7 +21,7 @@ const CONNECTION_URL = "mongodb+srv://akshaykh1:8898413303@cluster0.vpq91gx.mong
 const PORT = process.env.PORT || 7000;
 mongoose.connect(CONNECTION_URL)
 .then(()=>{console.log("DB connected successfully")})
-.catch((err)=> {console.log(err, "Error in DB connction")});
+.catch((err)=> {console.log(err.message, "Error in DB connction")});
 
 //api router
 
